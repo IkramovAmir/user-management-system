@@ -1,7 +1,7 @@
 import hashlib
 from flask import Flask, request, render_template, flash, redirect, url_for, session
 import settings
-from db import get_user, enter_infos
+from db import get_user, enter_infos, get_tasks, insert_task
 
 
 app = Flask(__name__)
@@ -52,10 +52,21 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'user' in session:
-        return "profile page"
+        if request.method == 'GET':
+            tasks = get_tasks(session['user'])
+            return render_template('profile.html', tasks=tasks)
+
+        if request.method == "POST":
+            insert_task(
+                title=request.form['title'],
+                description=request.form['description'],
+                user_id=session['user']
+            )
+            return render_template('profile.html', tasks=tasks)
+
     else:
         return redirect(url_for('login'))
 
