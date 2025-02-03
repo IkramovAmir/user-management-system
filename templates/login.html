@@ -7,7 +7,7 @@
 </head>
 <body>
 
-    <h1>Ro'yxatdan o'ting</h1>
+    <h1>Kirish</h1>
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -19,20 +19,16 @@
         {% endif %}
     {% endwith %}
 
-    <form action="{{ url_for('register') }}" method="post">
-        <label for="name">Name: </label>
-        <input type="text" name="name" placeholder="Name"><br><br>
-
+    <form action="{{ url_for('login') }}" method="post">
         <label for="name">Username: </label>
         <input type="text" name="username" placeholder="Username"><br><br>
 
         <label for="name">Password: </label>
         <input type="password" name="password" placeholder="Password"><br><br>
 
-        <button type="submit">Yuborish</button>
+        <button type="submit">Kirish</button>
     </form>
     <br><br>
-    <a href="{{ url_for('login') }}">Login</a>
-    
+    <a href="{{ url_for('register') }}">Register</a>
 </body>
 </html>

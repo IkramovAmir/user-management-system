@@ -1,5 +1,5 @@
 import hashlib
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template, flash, redirect, url_for, session
 import settings
 from db import get_user, enter_infos
 
@@ -7,6 +7,9 @@ from db import get_user, enter_infos
 app = Flask(__name__)
 app.secret_key = settings.secret_key
 
+@app.route('/')
+def home():
+    return render_template('login.html')
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -18,12 +21,11 @@ def register():
             flash("Siz tanlagan username mavjud.")
             return render_template('register.html')
 
-        user = {
-            "name": form['name'],
-            "username": form['username'],
-            "password": hashlib.sha256(form['password'].encode()).hexdigest()
-        }
-        enter_infos(user['name'], user['username'], user['password'])
+        enter_infos(
+            form['name'], 
+            form['username'], 
+            hashlib.sha256(form['password'].encode()).hexdigest()
+        )
 
         return redirect(url_for('login'))
 
@@ -31,7 +33,31 @@ def register():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    return "login page"
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user = get_user(username) # user obj or None
+        if user is None:
+            flash("User mavjud emas, royxatdan o'tish")
+            return render_template('login.html')
+
+        if user[3] != hashlib.sha256(password.encode()).hexdigest():
+            flash("password xato kiritdingiz.")
+            return render_template('login.html')
+
+        session['user'] = user[0]
+
+        return redirect(url_for('profile'))
+
+    return render_template('login.html')
+
+@app.route('/profile')
+def profile():
+    if 'user' in session:
+        return "profile page"
+    else:
+        return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
