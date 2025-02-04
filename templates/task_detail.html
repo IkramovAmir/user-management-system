@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ task.title }}</title>
+</head>
+<body>
+    <div id="task-detail">
+        <h1>{{ task.title }}</h1>
+        <p>{{ task.description }}</p>
+
+        <form method="POST" action="{{ url_for('delete_task_route', task_id=task['id']) }}">
+            <button type="submit">O‘chirish</button>
+        </form>
+        
+        <a href="{{ url_for('profile') }}">Bosh sahifa</a>
+    </div>
+</body>
+</html>

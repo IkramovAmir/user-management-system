@@ -1,7 +1,8 @@
 import hashlib
 from flask import Flask, request, render_template, flash, redirect, url_for, session
 import settings
-from db import get_user, enter_infos, get_tasks, insert_task
+from db import get_user, enter_infos, get_tasks, insert_task, delete_task, get_task_by_id
+
 
 
 app = Flask(__name__)
@@ -56,8 +57,7 @@ def login():
 def profile():
     if 'user' in session:
         if request.method == 'GET':
-            tasks = get_tasks(session['user'])
-            return render_template('profile.html', tasks=tasks)
+            return render_template('profile.html', html_tasks=get_tasks(session['user']))
 
         if request.method == "POST":
             insert_task(
@@ -65,10 +65,27 @@ def profile():
                 description=request.form['description'],
                 user_id=session['user']
             )
-            return render_template('profile.html', tasks=tasks)
+            return render_template('profile.html', html_tasks=get_tasks(session['user']))
 
     else:
         return redirect(url_for('login'))
+    
+    
+@app.route('/task/<int:task_id>')
+def task_detail(task_id):
+    task = next((task for task in get_tasks(session['user']) if task['id'] == task_id))
+    if task:
+        return render_template("task_detail.html", task=task)
+    return "Task topilmadi"
+
+@app.route('/delete/<int:task_id>', methods=['POST'])
+def delete_task_route(task_id):
+    if delete_task(task_id):
+        flash("Task o'chirildi!")
+        return redirect(url_for('profile'))
+    else:
+        flash("Task topilmadi.")
+        return redirect(url_for('profile'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
