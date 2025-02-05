@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ task.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div id="task-detail">
@@ -13,7 +14,7 @@
             <button type="submit">O‘chirish</button>
         </form>
         
-        <a href="{{ url_for('profile') }}">Bosh sahifa</a>
+        <a class="main" href="{{ url_for('profile') }}">Bosh sahifa</a>
     </div>
 </body>
 </html>

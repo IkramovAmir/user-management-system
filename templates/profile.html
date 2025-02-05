@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -14,10 +15,10 @@
         <button type="submit">Add Task</button>
     </form>
 
-    <ul>
+    <ul class="tasks">
         {% for task in html_tasks %}
-            <li>
-                <a href="{{ url_for('task_detail', task_id=task['id']) }}">{{ task['title'] }}</a>
+            <li class="task">
+                <a  href="{{ url_for('task_detail', task_id=task['id']) }}">{{ task['title'] }}</a>
             </li>
         {% endfor %}
     </ul>

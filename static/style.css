@@ -1,0 +1,88 @@
+*{
+    padding: 0;
+    margin-left: 100px;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+button{
+    padding: 7px 20px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+button:hover{
+    background-color: white;
+    color: blue;
+}
+
+.register{
+    padding: 7px 20px;
+    background-color: rgb(255, 183, 0);
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.register:hover{
+    background-color: rgb(255, 144, 16);
+    color: rgb(143, 229, 244);
+}
+
+input{
+    border-radius: 15px;
+    padding: 7px 20px;
+}
+
+.tasks{
+    padding-top: 40px;
+}
+
+.task{
+    padding: 10px 0px;
+}
+
+.task a{
+    background-color: rgb(0, 251, 255);
+    padding: 5px 20px;
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.task a:hover{
+    background-color: rgb(0, 108, 176);
+    color: white;
+}
+
+.main{
+    padding: 7px 20px;
+    background-color: rgb(255, 242, 0);
+    color: white;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 10px;
+    margin: 40px;
+}
+
+.main:hover{
+    background-color: white;
+    color: blue;
+}
+
+.login{
+    padding: 7px 20px;
+    background-color: rgb(81, 255, 0);
+    color: rgb(2, 75, 203);
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.login:hover{
+    background-color:  rgba(165, 239, 131, 0.596);
+}
